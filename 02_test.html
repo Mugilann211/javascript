@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function calculateTotal(cart) {
+        return cart.reduce((total, items) => total + items.price, 0);
+      }
+
+      const cart = [
+        { product: "Shirt", price: 20 },
+        { product: "Shoes", price: 50 },
+      ];
+
+      const totalValue = calculateTotal(cart);
+      console.log(totalValue);
+    </script>
+  </body>
+</html>

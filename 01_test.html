@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function mapProductToHTML(products) {
+        return products.map((product) => `<li> ${product}</li>`);
+      }
+
+      const products = ["Shirt", "Shoes", "Hat"];
+      const htmlListItems = mapProductToHTML(products);
+
+      console.log(htmlListItems);
+    </script>
+  </body>
+</html>

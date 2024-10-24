@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function isPalindrome(mug) {
+        const normalmug = mug.replace(/\s+/g, "").toLowerCase();
+        const reversedmug = normalmug.split("").reverse().join("");
+        return normalmug === reversedmug;
+      }
+
+      console.log(isPalindrome("A man a plan a canal Panama"));
+    </script>
+  </body>
+</html>

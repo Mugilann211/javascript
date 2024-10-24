@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function findMissingNum(arr){
+      const n = arr.length +1
+      const expectedSum = (n*(arr[0] + arr[arr.length -1]))/2;
+      const actualSum = arr.reduce((sum,num) => sum + num, 0);
+      return expectedSum - actualSum;
+    }
+
+    const missingNum = findMissingNum([1,2,3,5]);
+    console.log(missingNum);
+    
+  </script>
+</body>
+</html>
