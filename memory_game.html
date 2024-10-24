@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory Game</title>
+    <style>
+      #game-board {
+        display: grid;
+        grid-template-columns: repeat(4, 100px);
+        grid-gap: 10px;
+      }
+
+      .card {
+        width: 100px;
+        height: 160px;
+        background-color: aqua;
+        cursor: pointer;
+      }
+
+      .card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: 0.6s;
+        transform-style: preserve-3d;
+      }
+
+      .card-flip {
+        transform: rotateY(180deg);
+      }
+
+      .card-front,
+      .card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+      }
+
+      .card-back {
+        transform: rotateY(180deg);
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Memory Game</h1>
+    <div id="game-board"></div>
+    <button id="reset">Reset Game</button>
+    <p id="attem">Attempts: 0</p>
+
+    <script>
+      const cards = ["A", "A", "B", "B", "C", "C", "D", "D", "E", "E", "F", "F"];
+      let shuffledCards, firstCard, secondCard, attem = 0;
+
+      function shuffleCards() {
+        shuffledCards = cards.sort(() => Math.random() - 0.5);
+      }
+
+      function createCards() {
+        const gameBoard = document.getElementById("game-board");
+        gameBoard.innerHTML = "";
+        shuffledCards.forEach((card) => {
+          const cardElement = document.createElement("div");
+          cardElement.classList.add("card");
+          cardElement.setAttribute("data-card", card);
+          cardElement.innerHTML = `
+            <div class="card-inner">
+              <div class="card-front">?</div>
+              <div class="card-back">${card}</div>
+            </div>`;
+          gameBoard.appendChild(cardElement);
+          cardElement.addEventListener("click", flipCard);
+        });
+      }
+
+      function flipCard(event) {
+        const clickedCard = event.currentTarget;
+        clickedCard.classList.add("card-flip");
+
+        if (!firstCard) {
+          firstCard = clickedCard;
+        } else if (!secondCard) {
+          secondCard = clickedCard;
+          attem++;
+          document.getElementById("attem").innerText = `Attempts: ${attem}`;
+          checkMatch();
+        }
+      }
+
+      function checkMatch() {
+        if (
+          firstCard.getAttribute("data-card") ===
+          secondCard.getAttribute("data-card")
+        ) {
+          firstCard = secondCard = null;
+        } else {
+          setTimeout(() => {
+            firstCard.classList.remove("card-flip");
+            secondCard.classList.remove("card-flip");
+            firstCard = secondCard = null;
+          }, 1000);
+        }
+      }
+
+      document.getElementById("reset").addEventListener("click", resetGame);
+
+      function resetGame() {
+        attem = 0;
+        document.getElementById("attem").innerText = `Attempts: ${attem}`;
+        shuffleCards();
+        createCards();
+      }
+
+      shuffleCards();
+      createCards();
+    </script>
+  </body>
+</html>
